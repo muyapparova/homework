@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <bean id="oleg" class="ru.kpfu.itis.Mucician">
+        <constructor-arg value="25"/>
+        <constructor-arg value="oleg"/>
+    </bean>
+
+    <bean id="petr" class="ru.kpfu.itis.Mucician" scope="prototype">
+        <!-- setAge -->
+        <property name="age" value="15"/>
+        <!-- setName -->
+        <property name="name" value="petr"/>
+    </bean>
+
+    <!--<bean id="piano" class="ru.kpfu.itis.Piano"/>-->
+    <!--<bean id="guitar" class="ru.kpfu.itis.Guitar"/>-->
+
+    <bean id="ivan" class="ru.kpfu.itis.Mucician">
+        <property name="instrument" ref="piano"/>
+        <property name="name" value="ivan"/>
+    </bean>
+
+    <bean id="singleton" class="ru.kpfu.itis.Singleton" factory-method="getInstance"/>
+
+    <bean id="maxim" class="ru.kpfu.itis.Mucician">
+        <property name="songs">
+            <list>
+                <value>11</value>
+                <value>12</value>
+                <value>13</value>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="aidar" class="ru.kpfu.itis.Mucician"/>
+
+    <!--<context:annotation-config/>-->
+    <context:component-scan base-package="ru.kpfu.itis"/>
+
+</beans>

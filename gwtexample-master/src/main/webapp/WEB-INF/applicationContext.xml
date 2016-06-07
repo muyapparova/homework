@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+       xmlns:security="http://www.springframework.org/schema/c" xmlns:sec="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+        http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd">
+
+
+    <context:component-scan base-package="shop.itis.kpfu.ru.client"/>
+    <context:component-scan base-package="shop.itis.kpfu.ru.server"/>
+    <context:component-scan base-package="shop.itis.kpfu.ru.server.repository"/>
+    <context:component-scan base-package="shop.itis.kpfu.ru.server.service"/>
+    <context:component-scan base-package="shop.itis.kpfu.ru.server.controller"/>
+    <context:component-scan base-package="shop.itis.kpfu.ru.shared.model"/>
+    <!--<mvc:default-servlet-handler default-servlet-name="springGwtRemoteServiceServlet"/>-->
+   <!-- <mvc:resources location="/resources/theme1/" mapping="/resources/**" />
+    <mvc:annotation-driven/>-->
+    <import resource="persistence-config.xml"/>
+    <jpa:repositories base-package="shop.itis.kpfu.ru.server.repository"/>
+
+    <beans:beans xmlns="http://www.springframework.org/schema/security"
+                 xmlns:beans="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                 xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+                        http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.1.xsd">
+
+        <http auto-config="true">
+            <intercept-url pattern="/goods/admin*" access="ROLE_ADMIN" />
+            <intercept-url pattern="/goods/**" access="ROLE_USER, ROLE_ADMIN" />
+
+        </http>
+
+        <authentication-manager>
+            <authentication-provider>
+                <user-service>
+                    <user name="user" password="123456" authorities="ROLE_USER" />
+                    <user name="admin" password="123456" authorities="ROLE_ADMIN" />
+                </user-service>
+            </authentication-provider>
+        </authentication-manager>
+
+
+    </beans:beans>
+</beans>
